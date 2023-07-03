@@ -1,3 +1,153 @@
+<?php
+
+ $family_name = "";
+ $last_name = "";
+ $family_name_kana = "";
+ $last_name_kana = "";
+ $mail = "";
+ $password = "";
+ $gender = "";
+ $postal_code = "";
+ $prefecture = "";
+ $address_1 = "";
+ $address_2 = "";
+ $authority = "";
+ $errmsg[] = "";
+ $authorityType = array('一般','管理者');
+ $PrefList =array(
+     '北海道',
+     '青森県',
+     '秋田県',
+     '岩手県',
+     '山形県',
+     '宮城県',
+     '福島県',
+     '新潟県',
+     '茨城県',
+     '群馬県',
+     '栃木県',
+     '千葉県',
+     '埼玉県',
+     '東京都',
+     '神奈川県',
+     '山梨県',
+     '長野県',
+     '静岡県',
+     '富山県',
+     '石川県',
+     '福島県',
+     '愛知県',
+     '岐阜県',
+     '滋賀県',
+     '三重県', 
+     '大阪府',
+     '奈良県',
+     '和歌山県',
+     '京都府',
+     '兵庫県',
+     '香川県',
+     '徳島県',
+     '愛媛県',
+     '高知県',
+     '岡山県',
+     '鳥取県',
+     '広島県',
+     '島根県',
+     '山口県',
+     '福岡県',
+     '佐賀県',
+     '大分県',
+     '長崎県',
+     '熊本県',
+     '宮崎県',
+     '鹿児島県',
+     '沖縄県'
+     );
+
+
+if(isset($_POST['submit'])){
+    
+ $family_name = $_POST['family_name'];
+ $last_name = $_POST['last_name'];
+ $family_name_kana = $_POST['family_name_kana'];
+ $last_name_kana = $_POST['last_name_kana'];
+ $mail = $_POST['mail'];
+ $password = $_POST['password'];
+ $gender = $_POST['gender'];
+ $postal_code = $_POST['postal_code'];
+ $prefecture = $_POST['prefecture'];
+ $address_1 = $_POST['address_1'];
+ $address_2 = $_POST['address_2'];
+ $authority = $_POST['authority'];
+    
+ unset($errmsg);
+    
+    
+if(isset($_POST['family_name']) && (($_POST['family_name']) == "")){
+    $errmsg[0] = "名前(姓)が未入力です。";
+}
+
+if(isset($_POST['last_name']) && (($_POST['last_name']) == "")){
+    $errmsg[1] = "名前(名)が未入力です。";
+}
+
+if(isset($_POST['family_name_kana']) && (($_POST['family_name_kana']) == "")){
+    $errmsg[2] = "カナ(姓)が未入力です。";
+}
+
+if(isset($_POST['last_name_kana']) && (($_POST['last_name_kana']) == "")){
+    $errmsg[3] = "カナ(名)が未入力です。";
+}
+
+if(isset($_POST['mail']) && (($_POST['mail']) == "")){
+    $errmsg[4] = "メールアドレスが未入力です。";
+}
+
+if(isset($_POST['password']) && (($_POST['password']) == "")){
+    $errmsg[5] = "パスワードが未入力です。";
+}
+
+if(isset($_POST['postal_code']) && (($_POST['postal_code']) == "")){
+    $errmsg[6] = "郵便番号が未入力です。";
+}
+
+if(isset($_POST['prefecture']) && (($_POST['prefecture']) == "")){
+    $errmsg[7] = "都道府県を選んでください。";
+}
+
+if(isset($_POST['address_1']) && (($_POST['address_1']) == "")){
+    $errmsg[8] = "住所(市町区村)が未入力です。";
+}
+    
+if(isset($_POST['address_2']) && (($_POST['address_2']) == "")){
+    $errmsg[9] = "住所(番地)が未入力です。";
+}
+    
+
+if(empty($errmsg)){   
+ session_start();
+ $_SESSION['family_name'] = $_POST['family_name'];
+ $_SESSION['last_name']  = $_POST['last_name'];
+ $_SESSION['family_name_kana'] = $_POST['family_name_kana'];
+ $_SESSION['last_name_kana'] = $_POST['last_name_kana'];
+ $_SESSION['mail'] = $_POST['mail'];
+ $_SESSION['password'] = $_POST['password'];
+ $_SESSION['gender'] = $_POST['gender'];
+ $_SESSION['postal_code'] = $_POST['postal_code'];
+ $_SESSION['prefecture'] = $_POST['prefecture'];
+ $_SESSION['address_1'] = $_POST['address_1'];
+ $_SESSION['address_2'] = $_POST['address_2'];
+ $_SESSION['authority'] = $_POST['authority'];
+
+ header('Location: http://localhost/account_registration/regist_confirm.php');
+ exit();
+}
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -20,66 +170,182 @@
         </div>
     </header>
 <main>
-     <div class="main-container">
-           <div class="left">
-               <div class="headline">プログラミングに役立つ掲示板</div>
-               <form method="post" action="insert.php">
-               <p>入力フォーム</p>
-                   <div>
-                   <label>名前(姓)</label>
-                   <input type="text" class="text" name="family_name" size="40">
-                   </div>
-                   <br>
+               <form method="post" action="">     
+                       <table>
+                        <tr>
+                            <th><a>アカウント登録画面</a></th>
+                        </tr>
+                        <tr>
+                            <td>名前(姓)</td>
+                            <td><input type="text" class="text" name="family_name" pattern="^[\u4E00-\u9FFF\u3040-\u309F]+$" size="40" value="<?=$family_name?>">
+                            <?php
+                              if(isset($_POST['family_name']) && (($_POST['family_name']) == "")){
+                                  echo "<font color='red'><br>$errmsg[0]</font>";
+                              }
+                            ?>
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <td>名前(名)</td>
+                            <td><input type="text" class="text" name="last_name" pattern="^[\u4E00-\u9FFF\u3040-\u309F]+$" size="40" value="<?=$last_name?>">
+                            <?php
+                              if(isset($_POST['last_name']) && (($_POST['last_name']) == "")){
+                                  echo "<font color='red'><br>$errmsg[1]</font>";
+                              }
+                            ?>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>カナ(姓)</td>
+                            <td><input type="text" class="text" name="family_name_kana" pattern="^[\u30A1-\u30F6]+$" size="40" value="<?=$family_name_kana?>">
+                            <?php
+                              if(isset($_POST['family_name_kana']) && (($_POST['family_name_kana']) == "")){
+                                  echo "<font color='red'><br>$errmsg[2]</font>";
+                              }
+                            ?>       
+                            </td>
+                        </tr>
                    
-                   <div>
-                   <label>名前(名)</label>
-                   <input type="text" class="text" name="last_name" size="40">
-                   </div>
-                   <br>
+                        <tr>
+                            <td>カナ(名)</td>
+                            <td><input type="text" class="text" name="last_name_kana" pattern="^[\u30A1-\u30F6]+$" size="40" value="<?=$last_name_kana?>">
+                            <?php
+                              if(isset($_POST['last_name_kana']) && (($_POST['last_name_kana']) == "")){
+                                  echo "<font color='red'><br>$errmsg[3]</font>";
+                              }
+                            ?>    
+                            </td>
+                        </tr>
                    
-                   <div>
-                   <label>カナ(姓)</label>
-                   <input type="text" class="text" name="family_name_kana" size="40">
-                   </div>
-                   <br>
+                        <tr>
+                            <td>メールアドレス</td>
+                            <td><input type="text" class="text" name="mail" pattern="^[a-zA-Z0-9-\.]+@[a-zA-Z0-9-\.]$" size="40" value="<?=$mail?>" placeholder="例)abc@di-works.co.jp">
+                            <?php
+                              if(isset($_POST['mail']) && (($_POST['mail']) == "")){
+                                  echo "<font color='red'><br>$errmsg[4]</font>";
+                              }
+                            ?>
+                            </td>
+                        </tr>
                    
-                   <div>
-                   <label>カナ(名)</label>
-                   <input type="text" class="text" name="last_name_kana" size="40">
-                   </div>
-                   <br>
+                        <tr>
+                            <td>パスワード</td>
+                            <td><input type="text" class="text" name="password" pattern="^[0-9a-zA-Z]+${10}" size="40" value="<?=$password?>" placeholder="半角英数字10文字で入力してください">
+                            <?php
+                              if(isset($_POST['password']) && (($_POST['password']) == "")){
+                                  echo "<font color='red'><br>$errmsg[5]</font>";
+                              }
+                            ?>    
+                            </td>
+                        </tr>
                    
-                   <div>
-                   <label>メールアドレス</label>
-                   <input type="text" class="text" name="mail" size="40">
-                   </div>
-                   <br>
+                        <tr>
+                        <td>性別</td>
+                            <td align="left">
+                            <?php
+                                if(isset($_POST['gender']) && (($_POST['gender']) == "男")){
+                                echo "<label for ='男'>男<input type='radio' id='男' name='gender' value='男' checked></label>";
+                                echo "<label for ='女'>女<input type='radio' id='女' name='gender' value='女'></label>"; 
+ 
+                                }else if(isset($_POST['gender']) && (($_POST['gender']) == "女")){
+                                echo "<label for ='男'>男<input type='radio' id='男' name='gender' value='男'></label>";
+                                echo "<label for ='女'>女<input type='radio' id='女' name='gender' value='女' checked></label>"; 
+                                
+                                }else if(empty($_POST['gender'])){
+                                echo "<label for ='男'>男<input type='radio' id='男' name='gender' value='男' checked></label>";
+                                echo "<label for ='女'>女<input type='radio' id='女' name='gender' value='女'></label>";    
+                                }
+                                
+                             ?>
+                                </td>
+                        </tr>
                    
-                   <div>
-                   <label>パスワード</label>
-                   <input type="text" class="text" name="password" size="40">
-                   </div>
-                   <br>
-                   
-                   <div>
-                   <label>性別</label>
-                    <input type="radio" id="0" mame="gender"　checked>
-                    <label for="男">男</label>
-                    <input type="radio" id="1" mame="gender">
-                    <label for="女">女</label>
-                   </div>
-                   <br>
-                
-                   
-                   
-                   
-                                      
+                        <tr>
+                            <td>郵便番号</td>
+                            <td align="left"><input type="text" class="text" pattern="[0-9]{7}" name="postal_code" size="10" value="<?=$postal_code?>" placeholder="例)1234567">
+                            <?php
+                              if(isset($_POST['postal_code']) && (($_POST['postal_code']) == "")){
+                                  echo "<font color='red'><br>$errmsg[6]</font>";
+                              }
+                            ?>    
+                            </td>
+                        </tr>
+                           
+                        <tr>
+                            <td>住所(都道府県)</td>
+                            <td align="left"><select name="prefecture">
+                                <option value=""></option>
+                                <?php
+                                foreach($PrefList as $value){
+                                    if(!empty($_POST['prefecture'])){
+                                        if($value == $prefecture){
+                                        echo '<option value="'.$value.'" selected>'.$value.'</option>';
+                                        }else{
+                                        echo '<option value="'.$value.'">'.$value.'</option>';
+                                        }
+                                    }else{
+                                 echo '<option value="'.$value.'">'.$value.'</option>';
+                                }
+                                }
+                                ?>      
+                            </select>
+                            <?php                                  
+                                if(isset($_POST['prefecture']) && (($_POST['prefecture']) == "")){
+                                  echo "<font color='red'><br>$errmsg[7]</font>";
+                                }
+                            ?>
+                            </td>
+                        </tr>
+                           
+                        <tr>
+                            <td>住所(市町区村)</td>
+                            <td><input type="text" class="text" name="address_1" pattern="^[0-9-\u4E00-\u9FFF\u3040-\u309F\u30A1-\u30F6]$" size="20" value="<?=$address_1?>">
+                            <?php
+                              if(isset($_POST['address_1']) && (($_POST['address_1']) == "")){
+                                  echo "<font color='red'><br>$errmsg[8]</font>";
+                              }
+                            ?>     
+                            </td>
+                        </tr>
+                           
+                        <tr>
+                            <td>住所(番地)</td>
+                            <td><input type="text" class="text" name="address_2" pattern="[0-9-\u4E00-\u9FFF\u3040-\u309F\u30A1-\u30F6\]" size="20" value="<?=$address_2?>" placeholder="例)1-23-45">
+                            <?php
+                              if(isset($_POST['address_2']) && (($_POST['address_2']) == "")){
+                                  echo "<font color='red'><br>$errmsg[9]</font>";
+                              }
+                            ?>     
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>アカウント権限</td>
+                            <td align="left"><select name="authority">
+                            <?php
+                                foreach($authorityType as $value){
+                                    if(!empty($_POST['authority'])){
+                                        if($value == $authority){
+                                        echo '<option value="'.$value.'" selected>'.$value.'</option>';
+                                        }else{
+                                        echo '<option value="'.$value.'">'.$value.'</option>';
+                                        }
+                                    }else{
+                                 echo '<option value="'.$value.'">'.$value.'</option>';
+                                }
+                                }
 
-
-                   <input type="submit" name="submit" class="submit" value="確認する"> 
+                            ?>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" align="center"><input type="submit" name="submit" class="submit" value="確認する"></th>
+                        </tr>
+                    </table>
                </form>             
-            </div>
-        </div>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming

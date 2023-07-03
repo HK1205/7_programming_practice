@@ -14,75 +14,45 @@
     padding-right:100px;
 }
 
-.main-container {
-    width:100%;
+
+
+table {
+    padding:30px;
     margin:0 auto;
+    line-height:45px;
+    caret-color: transparent;
 }
 
-
-.left {
-    float:left;
-    width:70%;
-    padding-bottom:20px;
-    
-}
-
-.right {
-    float:right;
-    width:30%;
-    padding-bottom:20px;
-}
-
-.headline {
-    margin-top:10px;
-    font-size:30px;
-    font-weight:bold;
-    padding-left:10px;
-    border-left:5px solid black;
-    border-bottom:2px solid black;
-}
-
-.post-time {
-    padding-top:10px;
-}
-
-.topics {
-    background-color:gainsboro;
-    padding-top:50px;
-    padding-bottom:30px;
-    text-align:center;
-    display:inline-block;
-}
-
-.picture {
-    text-align:center;
-    padding-right:20px;
-    line-height:10px;
-    display:inline-block;
-    margin-bottom:10px;
-
-}
-
-#hottopic {
-    margin-top:50px;
-}
-
-.menu{
-    padding-left:10px;
-    clear:both;
-    font-weight:bold;
+th a {
     font-size:20px;
-    border-bottom:1px dotted black;
+    display:inline-block;
 }
 
-#hottopic li {
-    clear:both;
-    list-style-type:none;
+td {
+    padding-right:30px;
 }
+
+select {
+    padding:3px;
+}
+
+input::placeholder{
+    color:#D1CFCF;
+}
+
+.submit {
+    margin-top:30px;
+    padding:10px 20px;
+    background-color:#727070;
+    color:white;
+    border:1px solid lightgray;
+
+}
+
+
 
 footer {
     background-color:black;
-    clear:both;
     color:white;
     height:50px;
     padding-top:20px;
