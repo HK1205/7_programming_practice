@@ -47,7 +47,7 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
 
 <?php 
     if($error != ""){
-     echo "<h1><font color='red'>.$error.</font></h1>";
+     echo "<h1><font color='red'>$error</font></h1>";
         
     }else{
         echo "<h1>登録完了しました</h1>";
