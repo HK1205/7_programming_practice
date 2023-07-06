@@ -28,10 +28,11 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
         <img src="./picture/diblog_logo.jpg" width=15% height=15%>
         <div class="navi-bar">
             <ul>
-                <li>トップ</li>
+                <li onClick="location.href='http://localhost/top/index.html'">トップ</li>
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>

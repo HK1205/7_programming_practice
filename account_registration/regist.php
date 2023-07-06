@@ -179,10 +179,11 @@ if(empty($errmsg)){
         <img src="./picture/diblog_logo.jpg" width=15% height=15%>
         <div class="navi-bar">
             <ul>
-                <li>トップ</li>
+                <li onClick="location.href='http://localhost/top/index.html'">トップ</li>
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
@@ -248,7 +249,7 @@ if(empty($errmsg)){
                             ?>
                             </td>
                         </tr>
-                   +
+                           
                         <tr>
                             <td>パスワード</td>
                             <td><input type="text" class="text" name="password" pattern="[0-9\a-z\A-Z]{5,10}" size="40" value="<?=$password?>" placeholder="半角英数字を5～10文字で入力してください">
