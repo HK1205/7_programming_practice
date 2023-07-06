@@ -1,10 +1,18 @@
 <?php
 
+try{
+
 mb_internal_encoding("utf8");
 
 $pdo = new PDO("mysql:dbname=lesson01;host=localhost;","root","");
+    
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last_name_kana,mail,password,gender,postal_code,prefecture,address_1,address_2,authority,delete_flag,registered_time,update_time) values ('".$_POST['family_name']."','".$_POST['last_name']."','".$_POST['family_name_kana']."','".$_POST['last_name_kana']."','".$_POST['mail']."',PASSWORD('".$_POST['mail']."'),'".$_POST['gender']."','".$_POST['postal_code']."','".$_POST['prefecture']."','".$_POST['address_1']."','".$_POST['address_2']."','".$_POST['authority']."',0,NOW(),NOW());");
+
+}catch(PDOException $e){
+    $error = "エラーが発生したためアカウント登録できません。";
+}
 
 
 ?>
@@ -37,7 +45,7 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
 
 <?php 
     if($pdo == null){
-     echo "<h1><font color='red'>エラーが発生したためアカウント登録できません。</font></h1>";
+     echo "<h1><font color='red'>.$error.</font></h1>";
         
     }else{
         echo "<h1>登録完了しました</h1>";
