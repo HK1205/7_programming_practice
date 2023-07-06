@@ -36,7 +36,7 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
 <div class="complete">
 
 <?php 
-    if(empty($_POST['family_name']) || empty($_POST['last_name']) || empty($_POST['family_name_kana']) || empty($_POST['last_name_kana']) || empty($_POST['mail']) || empty($_POST['password']) || empty($_POST['postal_code']) || empty($_POST['prefecture']) || empty($_POST['address_1']) || empty($_POST['address_2'])){
+    if($pdo == null){
      echo "<h1><font color='red'>エラーが発生したためアカウント登録できません。</font></h1>";
         
     }else{
