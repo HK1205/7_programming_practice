@@ -1,9 +1,11 @@
 <?php
 
+$error = "";
+
 try{
-
+    
 mb_internal_encoding("utf8");
-
+    
 $pdo = new PDO("mysql:dbname=lesson01;host=localhost;","root","");
     
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -44,7 +46,7 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
 <div class="complete">
 
 <?php 
-    if($pdo == null){
+    if($error != ""){
      echo "<h1><font color='red'>.$error.</font></h1>";
         
     }else{
