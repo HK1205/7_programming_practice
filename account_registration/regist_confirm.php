@@ -1,5 +1,19 @@
 <?php
+ session_cache_limiter('none');
  session_start();
+
+if(isset($_SESSION['gender']) && (($_SESSION['gender']) == "男")){
+    $gender = 0;
+}else if(isset($_SESSION['gender']) && (($_SESSION['gender']) == "女")){
+    $gender = 1;
+}
+
+if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
+    $authority = 0;
+}else if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "管理者")){
+    $authority = 1;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -90,8 +104,8 @@
                         </tr>
                         <tr>
                             <th align="center">
-                            <form method="post" action="regist.php">
-                            <input type="submit" name="submit" class="submit" value="前に戻る">
+                            <form action="regist.php" method="post">
+                            <input type="submit" name="back" class="submit" value="前に戻る">
                             <input type=hidden value="<?php echo $_SESSION['family_name']; ?>" name="family_name">
                             <input type=hidden value="<?php echo $_SESSION['last_name']; ?>" name="last_name">
                             <input type=hidden value="<?php echo $_SESSION['family_name_kana']; ?>" name="family_name_kana">
@@ -116,12 +130,12 @@
                             <input type=hidden value="<?php echo $_SESSION['last_name_kana']; ?>" name="last_name_kana">
                             <input type=hidden value="<?php echo $_SESSION['mail']; ?>" name="mail">
                             <input type=hidden value="<?php echo $_SESSION['password']; ?>" name="password">
-                            <input type=hidden value="<?php echo $_SESSION['gender']; ?>" name="gender">
+                            <input type=hidden value="<?=$gender?>" name="gender">
                             <input type=hidden value="<?php echo $_SESSION['postal_code']; ?>" name="postal_code">
                             <input type=hidden value="<?php echo $_SESSION['prefecture']; ?>" name="prefecture">
                             <input type=hidden value="<?php echo $_SESSION['address_1']; ?>" name="address_1">
                             <input type=hidden value="<?php echo $_SESSION['address_2']; ?>" name="address_2">
-                            <input type=hidden value="<?php echo $_SESSION['authority']; ?>" name="authority">
+                            <input type=hidden value="<?=$authority?>" name="authority">
                             </form>
                             </th>
                         </tr>

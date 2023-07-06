@@ -64,6 +64,24 @@
      '沖縄県'
      );
 
+if(isset($_POST['back'])){
+
+ $family_name = $_POST['family_name'];
+ $last_name = $_POST['last_name'];
+ $family_name_kana = $_POST['family_name_kana'];
+ $last_name_kana = $_POST['last_name_kana'];
+ $mail = $_POST['mail'];
+ $password = $_POST['password'];
+ $gender = $_POST['gender'];
+ $postal_code = $_POST['postal_code'];
+ $prefecture = $_POST['prefecture'];
+ $address_1 = $_POST['address_1'];
+ $address_2 = $_POST['address_2'];
+ $authority = $_POST['authority'];
+     
+}
+
+
 
 if(isset($_POST['submit'])){
     
@@ -126,6 +144,7 @@ if(isset($_POST['address_2']) && (($_POST['address_2']) == "")){
 
 if(empty($errmsg)){   
  session_start();
+    
  $_SESSION['family_name'] = $_POST['family_name'];
  $_SESSION['last_name']  = $_POST['last_name'];
  $_SESSION['family_name_kana'] = $_POST['family_name_kana'];
@@ -177,7 +196,7 @@ if(empty($errmsg)){
                         </tr>
                         <tr>
                             <td>名前(姓)</td>
-                            <td><input type="text" class="text" name="family_name" pattern="^[\u4E00-\u9FFF\u3040-\u309F]+$" size="40" value="<?=$family_name?>">
+                            <td><input type="text" class="text" name="family_name" pattern="[\u4E00-\u9FFF\u3040-\u309F]{1,10}" size="40" value="<?=$family_name?>" placeholder="田中">
                             <?php
                               if(isset($_POST['family_name']) && (($_POST['family_name']) == "")){
                                   echo "<font color='red'><br>$errmsg[0]</font>";
@@ -188,7 +207,7 @@ if(empty($errmsg)){
                        
                         <tr>
                             <td>名前(名)</td>
-                            <td><input type="text" class="text" name="last_name" pattern="^[\u4E00-\u9FFF\u3040-\u309F]+$" size="40" value="<?=$last_name?>">
+                            <td><input type="text" class="text" name="last_name" pattern="[\u4E00-\u9FFF\u3040-\u309F]{1,10}" size="40" value="<?=$last_name?>" placeholder="太郎">
                             <?php
                               if(isset($_POST['last_name']) && (($_POST['last_name']) == "")){
                                   echo "<font color='red'><br>$errmsg[1]</font>";
@@ -199,7 +218,7 @@ if(empty($errmsg)){
                         
                         <tr>
                             <td>カナ(姓)</td>
-                            <td><input type="text" class="text" name="family_name_kana" pattern="^[\u30A1-\u30F6]+$" size="40" value="<?=$family_name_kana?>">
+                            <td><input type="text" class="text" name="family_name_kana" pattern="[\u30A1-\u30F6]{1,10}" size="40" value="<?=$family_name_kana?>" placeholder="タナカ">
                             <?php
                               if(isset($_POST['family_name_kana']) && (($_POST['family_name_kana']) == "")){
                                   echo "<font color='red'><br>$errmsg[2]</font>";
@@ -210,7 +229,7 @@ if(empty($errmsg)){
                    
                         <tr>
                             <td>カナ(名)</td>
-                            <td><input type="text" class="text" name="last_name_kana" pattern="^[\u30A1-\u30F6]+$" size="40" value="<?=$last_name_kana?>">
+                            <td><input type="text" class="text" name="last_name_kana" pattern="^[\u30A1-\u30F6]{1,10}" size="40" value="<?=$last_name_kana?>" placeholder="タロウ">
                             <?php
                               if(isset($_POST['last_name_kana']) && (($_POST['last_name_kana']) == "")){
                                   echo "<font color='red'><br>$errmsg[3]</font>";
@@ -221,7 +240,7 @@ if(empty($errmsg)){
                    
                         <tr>
                             <td>メールアドレス</td>
-                            <td><input type="text" class="text" name="mail" pattern="^[a-zA-Z0-9-\.]+@[a-zA-Z0-9-\.]$" size="40" value="<?=$mail?>" placeholder="例)abc@di-works.co.jp">
+                            <td><input type="text" class="text" name="mail" pattern="[a-zA-Z0-9\-]+@[a-zA-Z0-9\-]+(\.[a-z]{2,3})*$" size="40" value="<?=$mail?>" placeholder="例)abc@di-works.co.jp">
                             <?php
                               if(isset($_POST['mail']) && (($_POST['mail']) == "")){
                                   echo "<font color='red'><br>$errmsg[4]</font>";
@@ -229,10 +248,10 @@ if(empty($errmsg)){
                             ?>
                             </td>
                         </tr>
-                   
+                   +
                         <tr>
                             <td>パスワード</td>
-                            <td><input type="text" class="text" name="password" pattern="^[0-9a-zA-Z]+${10}" size="40" value="<?=$password?>" placeholder="半角英数字10文字で入力してください">
+                            <td><input type="text" class="text" name="password" pattern="[0-9\a-z\A-Z]{5,10}" size="40" value="<?=$password?>" placeholder="半角英数字を5～10文字で入力してください">
                             <?php
                               if(isset($_POST['password']) && (($_POST['password']) == "")){
                                   echo "<font color='red'><br>$errmsg[5]</font>";
@@ -301,7 +320,7 @@ if(empty($errmsg)){
                            
                         <tr>
                             <td>住所(市町区村)</td>
-                            <td><input type="text" class="text" name="address_1" pattern="^[0-9-\u4E00-\u9FFF\u3040-\u309F\u30A1-\u30F6]$" size="20" value="<?=$address_1?>">
+                            <td><input type="text" class="text" name="address_1" pattern="[\u4E00-\u9FFF\u3040-\u309F\u30A1-\u30F6\s]{1,10}" size="20" value="<?=$address_1?>">
                             <?php
                               if(isset($_POST['address_1']) && (($_POST['address_1']) == "")){
                                   echo "<font color='red'><br>$errmsg[8]</font>";
@@ -312,7 +331,7 @@ if(empty($errmsg)){
                            
                         <tr>
                             <td>住所(番地)</td>
-                            <td><input type="text" class="text" name="address_2" pattern="[0-9-\u4E00-\u9FFF\u3040-\u309F\u30A1-\u30F6\]" size="20" value="<?=$address_2?>" placeholder="例)1-23-45">
+                            <td><input type="text" class="text" name="address_2" pattern="[0-9\-]{1,100}" size="20" value="<?=$address_2?>" placeholder="例)1-23-45">
                             <?php
                               if(isset($_POST['address_2']) && (($_POST['address_2']) == "")){
                                   echo "<font color='red'><br>$errmsg[9]</font>";
@@ -325,7 +344,7 @@ if(empty($errmsg)){
                             <td>アカウント権限</td>
                             <td align="left"><select name="authority">
                             <?php
-                                foreach($authorityType as $value){
+                                foreach($authorityType as $key => $value){
                                     if(!empty($_POST['authority'])){
                                         if($value == $authority){
                                         echo '<option value="'.$value.'" selected>'.$value.'</option>';
