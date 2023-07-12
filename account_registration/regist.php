@@ -184,6 +184,7 @@ if(empty($errmsg)){
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
+                <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
@@ -284,7 +285,7 @@ if(empty($errmsg)){
                    
                         <tr>
                             <td>郵便番号</td>
-                            <td align="left"><input type="text" class="text" pattern="[0-9]{7}" name="postal_code" size="10" value="<?=$postal_code?>" placeholder="例)1234567">
+                            <td align="left"><input type="text" class="text" pattern="[1-9]([0-9]{6})" name="postal_code" size="10" value="<?=$postal_code?>" placeholder="例)1234567">
                             <?php
                               if(isset($_POST['postal_code']) && (($_POST['postal_code']) == "")){
                                   echo "<font color='red'><br>$errmsg[6]</font>";
@@ -332,7 +333,7 @@ if(empty($errmsg)){
                            
                         <tr>
                             <td>住所(番地)</td>
-                            <td><input type="text" class="text" name="address_2" pattern="[0-9\-]{1,100}" size="20" value="<?=$address_2?>" placeholder="例)1-23-45">
+                            <td><input type="text" class="text" name="address_2" pattern="[1-9]([0-9]*)(-[1-9]([0-9]*))*" size="20" value="<?=$address_2?>" placeholder="例)1-23-45">
                             <?php
                               if(isset($_POST['address_2']) && (($_POST['address_2']) == "")){
                                   echo "<font color='red'><br>$errmsg[9]</font>";

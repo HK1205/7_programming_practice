@@ -36,6 +36,7 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
+                <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>

@@ -33,6 +33,7 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
+                <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
@@ -41,7 +42,7 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
 <main>  
                        <table>
                         <tr>
-                            <th colspan="2" align="center"><a>アカウント登録画面</a></th>
+                            <th colspan="2" align="center"><a>アカウント登録確認画面</a></th>
                         </tr>
                         <tr>
                             <td>名前(姓)</td>
