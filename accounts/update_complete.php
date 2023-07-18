@@ -83,10 +83,10 @@ $stmt->execute();
     <h2>アカウント更新完了画面</h2>   
 <?php 
     if($error != ""){
-     echo "<h1><font color='red'>$error</font></h1>";
+     echo "<div><h1><font color='red'>$error</font></h1></div>";
         
     }else{
-        echo "<h1>更新完了いたしました。</h1>";
+        echo "<div><h1>更新完了いたしました。</h1></div>";
     }
 ?>
     <button onClick="location.href='http://localhost/top/index.html'">TOPページにもどる</button>
