@@ -1,5 +1,6 @@
 <?php
 
+
  $family_name = "";
  $last_name = "";
  $family_name_kana = "";
@@ -64,7 +65,43 @@
      '沖縄県'
      );
 
-if(isset($_POST['back'])){
+
+if(!isset($_POST['back'])){
+    
+mb_internal_encoding("utf8");
+
+session_start();
+
+if(!empty($_POST['ID'])){
+    $_SESSION['ID'] = $_POST['ID'];
+    $id = $_SESSION['ID'];
+}else{
+    $id = $_SESSION['ID'];
+}
+
+$pdo = new pdo("mysql:dbname=lesson01;host=localhost", "root", "");
+
+$stmt = $pdo->prepare("select family_name, last_name, family_name_kana, last_name_kana, mail, convert(AES_DECRYPT(UNHEX(password),'cryptkey') Using utf8) as ex_password, gender, postal_code, prefecture, address_1, address_2, authority from registration where id = :id ");
+$stmt->bindValue(':id', $id, PDO::PARAM_STR);
+$stmt->execute();
+
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+ $family_name = $data['family_name'];
+ $last_name = $data['last_name'];
+ $family_name_kana = $data['family_name_kana'];
+ $last_name_kana = $data['last_name_kana'];
+ $mail = $data['mail'];
+ $password = $data['ex_password'];
+ $gender = $data['gender'];
+ $postal_code = $data['postal_code'];
+ $prefecture = $data['prefecture'];
+ $address_1 = $data['address_1'];
+ $address_2 = $data['address_2'];
+ $authority = $data['authority'];
+    
+}else if(isset($_POST['back'])){
 
  $family_name = $_POST['family_name'];
  $last_name = $_POST['last_name'];
@@ -158,7 +195,7 @@ if(empty($errmsg)){
  $_SESSION['address_2'] = $_POST['address_2'];
  $_SESSION['authority'] = $_POST['authority'];
 
- header('Location: http://localhost/account_registration/regist_confirm.php');
+ header('Location: http://localhost/accounts/update_confirm.php');
  exit();
 }
 }
@@ -171,7 +208,7 @@ if(empty($errmsg)){
 <html lang="ja">
 <head>
  <meta charset="UTF-8">
- <link rel="stylesheet" type="text/css" href="style.css">
+ <link rel="stylesheet" type="text/css" href="CSS/style3.css">
  <title>D.I.BLOG</title>
 </head>
 <body>
@@ -194,7 +231,7 @@ if(empty($errmsg)){
                <form method="post" action="">     
                        <table>
                         <tr>
-                            <th colspan="2" align="center"><a>アカウント登録画面</a></th>
+                            <th colspan="2" align="center"><a>アカウント更新画面</a></th>
                         </tr>
                         <tr>
                             <td>名前(姓)</td>
@@ -253,7 +290,7 @@ if(empty($errmsg)){
                            
                         <tr>
                             <td>パスワード</td>
-                            <td><input type="text" class="text" name="password" pattern="[0-9\a-z\A-Z]{5,10}" size="40" value="<?=$password?>" placeholder="半角英数字を5～10文字で入力してください">
+                            <td><input type="text" class="text" name="password" pattern="([0-9a-zA-Z]{5,10})" size="40" value="<?=$password?>" placeholder="半角英数字を5～10文字で入力してください">
                             <?php
                               if(isset($_POST['password']) && (($_POST['password']) == "")){
                                   echo "<font color='red'><br>$errmsg[5]</font>";
@@ -266,17 +303,14 @@ if(empty($errmsg)){
                         <td>性別</td>
                             <td align="left">
                             <?php
-                                if(isset($_POST['gender']) && (($_POST['gender']) == "男")){
+                                if((isset($_POST['gender']) && (($_POST['gender']) == "男")) || (isset($data['gender']) && (($data['gender']) == "0"))){
                                 echo "<label for ='男'>男<input type='radio' id='男' name='gender' value='男' checked></label>";
                                 echo "<label for ='女'>女<input type='radio' id='女' name='gender' value='女'></label>"; 
  
-                                }else if(isset($_POST['gender']) && (($_POST['gender']) == "女")){
+                                }else if((isset($_POST['gender']) && (($_POST['gender']) == "女")) || (isset($data['gender']) && (($data['gender']) == "1"))){
                                 echo "<label for ='男'>男<input type='radio' id='男' name='gender' value='男'></label>";
                                 echo "<label for ='女'>女<input type='radio' id='女' name='gender' value='女' checked></label>"; 
                                 
-                                }else if(empty($_POST['gender'])){
-                                echo "<label for ='男'>男<input type='radio' id='男' name='gender' value='男' checked></label>";
-                                echo "<label for ='女'>女<input type='radio' id='女' name='gender' value='女'></label>";    
                                 }
                                 
                              ?>
@@ -300,7 +334,7 @@ if(empty($errmsg)){
                                 <option value=""></option>
                                 <?php
                                 foreach($PrefList as $value){
-                                    if(!empty($_POST['prefecture'])){
+                                    if(!empty($data['prefecture']) || !empty($_POST['prefecture'])){
                                         if($value == $prefecture){
                                         echo '<option value="'.$value.'" selected>'.$value.'</option>';
                                         }else{
@@ -347,8 +381,8 @@ if(empty($errmsg)){
                             <td align="left"><select name="authority">
                             <?php
                                 foreach($authorityType as $key => $value){
-                                    if(!empty($_POST['authority'])){
-                                        if($value == $authority){
+                                    if(!empty($_POST['authority']) || !empty($data['authority'])){
+                                        if($value == $authority || $key == $authority){
                                         echo '<option value="'.$value.'" selected>'.$value.'</option>';
                                         }else{
                                         echo '<option value="'.$value.'">'.$value.'</option>';

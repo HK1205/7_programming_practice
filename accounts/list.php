@@ -1,4 +1,5 @@
 <?php
+
 mb_internal_encoding("utf8");
 
 $pdo = new PDO("mysql:dbname=lesson01;host=localhost;","root","");
@@ -13,7 +14,7 @@ $rows = $pdo->query('select * from registration order by id desc');
 <html lang="ja">
 <head>
  <meta charset="UTF-8">
- <link rel="stylesheet" type="text/css" href="style.css">
+ <link rel="stylesheet" type="text/css" href="CSS/style.css">
  <title>D.I.BLOG</title>
 </head>
 <body>
@@ -90,10 +91,16 @@ while($row = $rows->fetch()){
     echo $date2->format('Y/m/d');
     echo "</td>";
     echo "<td align='center'>";
-    echo '<button onClick="location.href=\'http://localhost/accounts/update.php\'">更新</button>';
+    echo "<form action='update.php' method='post'>";
+    echo '<input type="hidden" value="'.$row['id'].'" name="ID">';
+    echo '<input type="submit" name="delete" value="更新">';
+    echo "</form>";
     echo "</td>";
     echo "<td align='center'>";
-    echo '<button onClick="location.href=\'http://localhost/accounts/delete.php\'">削除</button>';
+    echo "<form action='delete.php' method='post'>";
+    echo '<input type="hidden" value="'.$row['id'].'" name="ID">';
+    echo '<input type="submit" name="delete" value="削除">';
+    echo "</form>";
     echo "</td>";
     echo "</tr>";
 } 
