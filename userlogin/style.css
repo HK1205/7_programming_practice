@@ -18,6 +18,10 @@ div {
     margin:50px auto;
 }
 
+h1 {
+    text-align:center;
+    margin:500px auto;
+}
 
 .loginframework {
     border:2px solid #dfdfdf;

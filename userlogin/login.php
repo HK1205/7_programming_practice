@@ -12,16 +12,20 @@ $password = $_POST['password'];
 try {
 mb_internal_encoding("utf8");
     
+if($mail == "" || $password == ""){
+    throw new PDOException();
+}
+    
 $pdo = new PDO("mysql:dbname=lesson01;host=localhost;","root","");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-$stmt = $pdo->prepare('select convert(AES_DECRYPT(UNHEX(password), \'cryptkey\') Using utf8) as ex_password, authority from registration where mail = :mail');
+$stmt = $pdo->prepare('select AES_DECRYPT(UNHEX(password), \'cryptkey\'), authority from registration where mail =:mail');
 $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
 $stmt->execute();
 
 $data = $stmt->fetch(PDO::FETCH_ASSOC);
     
-if($data['ex_password'] == $password){
+if(!empty($data['AES_DECRYPT(UNHEX(password), \'cryptkey\')']) && ($data['AES_DECRYPT(UNHEX(password), \'cryptkey\')']) == $password){
     session_start();
     $_SESSION['authority'] = $data['authority'];
     header('Location: http://localhost/top/index.html');
