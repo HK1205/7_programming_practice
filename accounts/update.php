@@ -1,5 +1,11 @@
 <?php
 
+try{
+session_start();
+    
+if($_SESSION['yourauthority'] == 0){
+    throw new Exception();
+}
 
  $family_name = "";
  $last_name = "";
@@ -69,8 +75,6 @@
 if(!isset($_POST['back'])){
     
 mb_internal_encoding("utf8");
-
-session_start();
 
 if(!empty($_POST['ID'])){
     $_SESSION['ID'] = $_POST['ID'];
@@ -199,11 +203,11 @@ if(empty($errmsg)){
  exit();
 }
 }
-
+    
+}catch(Exception $e){
+    $e = "不正なアクセスを検出しました";
+}
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -220,14 +224,17 @@ if(empty($errmsg)){
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
 <main>
+             <?php if($_SESSION['yourauthority'] == 1): ?>
                <form method="post" action="">     
                        <table>
                         <tr>
@@ -400,7 +407,10 @@ if(empty($errmsg)){
                             <th colspan="2" align="center"><input type="submit" name="submit" class="submit" value="確認する"></th>
                         </tr>
                     </table>
-               </form>             
+               </form>
+         <?php else:?>
+         <h1><font color="red"><?php echo $e; ?></font></h1>
+         <?php endif; ?>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming

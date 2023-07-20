@@ -14,20 +14,25 @@
     padding-right:100px;
 }
 
-div {
-    line-height:200px;
+h1 {
+    margin:400px auto;
+    text-align:center;
 }
 
 button {
-    padding:10px 20px;
+    padding:20px 40px;
     margin:0 30px;
+    font-size:14px;
+    border-radius:5px;
     background-color:#727070;
     color:white;
     display:inline-block;
     border:1px solid lightgray;
 }
 
-
+div {
+    margin:200px auto;
+}
 
 footer {
     background-color:black;

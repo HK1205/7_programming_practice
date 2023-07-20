@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+try{
+    if($_SESSION['yourauthority'] == 0){
+        throw new Exception();
+    }
+    
+}catch(Exception $e){
+    $e = "不正なアクセスを検出しました";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -14,20 +27,30 @@
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
 <main> 
+    <?php if($_SESSION['yourauthority'] == 1): ?>
     <div align="center">
     <h2>アカウント削除確認画面</h2>
+    </div>
+    <div align="center">
     <h1>本当に削除してよろしいでしょうか？</h1>
+    </div>
+    <div align="center">
     <button onClick="location.href='http://localhost/accounts/delete.php'">前に戻る</button>
     <button onClick="location.href='http://localhost/accounts/delete_complete.php'">削除する</button>
     </div>
+    <?php else:?>
+    <h1><font color="red"><?php echo $e; ?></font></h1>
+    <?php endif; ?>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming

@@ -15,7 +15,16 @@
 }
 
 div {
-    margin:150px auto;
+    margin:100px auto;
+}
+
+h1 {
+    margin:400px auto;
+    text-align:center;
+}
+
+h2 {
+    text-align:center;
 }
 
 button {
@@ -24,7 +33,7 @@ button {
     background-color:#727070;
     color:white;
     display:inline-block;
-    font-size:15px;
+    font-size:14px;
     border:1px solid lightgray;
 }
 

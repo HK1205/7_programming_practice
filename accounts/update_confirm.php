@@ -2,6 +2,15 @@
  session_cache_limiter('none');
  session_start();
 
+try {
+    
+if($_SESSION['yourauthority'] == 0){
+    throw new PDOException();
+}
+}catch(Exception $e){
+    $e = "不正なアクセスを検出しました";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,14 +29,17 @@
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
-<main>  
+<main> 
+                      <?php if($_SESSION['yourauthority'] == 1): ?>
                        <table>
                         <tr>
                             <th colspan="2" align="center"><a>アカウント更新確認画面</a></th>
@@ -112,7 +124,10 @@
                         <th align="center">
                             <button onClick="location.href='http://localhost/accounts/update_complete.php'">更新する</button>
                         </th>
-                        y</table>
+                        </table>
+                     <?php else:?>
+                     <h1><font color="red"><?php echo $e; ?></font></h1>
+                     <?php endif; ?>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming

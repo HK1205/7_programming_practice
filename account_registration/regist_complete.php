@@ -42,7 +42,7 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
-                <?php if($_SESSION['authority'] == 1): ?>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
                 <?php endif; ?>
@@ -54,15 +54,17 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
 <main>  
     <?php if($_SESSION['yourauthority'] == 1):?>
     <div class="complete">
-    <h2>アカウント登録完了画面</h2> 
+    <h2>アカウント登録完了画面</h2>
+    </div>
 <?php 
     if($error != ""){
-     echo "<h1><font color='red'>$error</font></h1>";
+     echo "<div class='complete'><h1><font color='red'>$error</font></h1></div>";
         
     }else{
-        echo "<h1>登録完了しました</h1>";
+        echo "<div class='complete'><h1>登録完了しました</h1></div>";
     }
 ?>
+    <div class="complete">
     <input type="button" value="TOPページに戻る" onClick="location.href='http://localhost/top/index.html'">
     </div>
     <?php else:?>

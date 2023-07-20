@@ -1,15 +1,20 @@
 <?php
 
+session_start();
+
+try{   
+if($_SESSION['yourauthority'] == 0){
+    throw new Exception();
+}
+
 mb_internal_encoding("utf8");
-
 $pdo = new PDO("mysql:dbname=lesson01;host=localhost;","root","");
-
 $rows = $pdo->query('select * from registration order by id desc');
 
-
+}catch(Exception $e){
+    $e = "不正なアクセスを検出しました";
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -26,14 +31,17 @@ $rows = $pdo->query('select * from registration order by id desc');
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
 <main>
+<?php if($_SESSION['yourauthority'] == 1): ?>
 <br>
 <br>
 <table border="1" cellspacing="0" cellpadding="5" width="100%">
@@ -106,6 +114,9 @@ while($row = $rows->fetch()){
 } 
 ?>
 </table>
+<?php else:?>
+<h1><font color="red"><?php echo $e; ?></font></h1>
+<?php endif; ?>
     
 
 

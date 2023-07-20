@@ -40,7 +40,9 @@ td {
 
 button {
     margin-top:30px;
-    padding:10px 20px;
+    padding:20px 40px;
+    font-size:14px;
+    border-radius:5px;
     background-color:#727070;
     color:white;
     border:1px solid lightgray;

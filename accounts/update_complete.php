@@ -5,6 +5,10 @@ try {
 
 session_start();
     
+if($_SESSION['yourauthority'] == 0){
+    throw new PDOException();
+}
+    
 $error = "";
 $id = $_SESSION['ID'];
 $family_name = $_SESSION['family_name'];
@@ -52,6 +56,7 @@ $stmt->execute();
 
 }catch(PDOException $e){
     $error = "エラーが発生したためアカウント更新できません。";
+    $err = "不正なアクセスを検出しました";
 }
 
 ?>
@@ -71,26 +76,32 @@ $stmt->execute();
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
-<main> 
+<main>
+    <?php if($_SESSION['yourauthority'] == 1): ?>
     <div align="center">
     <h2>アカウント更新完了画面</h2>   
-<?php 
+    <?php
     if($error != ""){
      echo "<div><h1><font color='red'>$error</font></h1></div>";
         
     }else{
-        echo "<div><h1>更新完了いたしました。</h1></div>";
+        echo "<h1>更新完了いたしました。</h1>";
     }
-?>
+    ?>
     <button onClick="location.href='http://localhost/top/index.html'">TOPページにもどる</button>
     </div>
+    <?php else:?>
+    <h1><font color="red"><?php echo $err; ?></font></h1>
+    <?php endif; ?>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming

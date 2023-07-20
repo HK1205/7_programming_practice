@@ -14,11 +14,6 @@
     padding-right:100px;
 }
 
-h1 {
-    margin:0 auto;
-    margin:400px auto;
-    text-align:center;
-}
 
 table {
     padding:30px;
@@ -44,22 +39,27 @@ input::placeholder{
     color:#D1CFCF;
 }
 
+h1 {
+    margin:0 auto;
+    margin:200px auto;
+    text-align:center;
+}
+
 .complete {
-    display:block;
-    margin-left:0 500px;;
+    text-align:center;
+    margin:200px auto;
 }
 
 input[type='button']{
+    border-radius:5px;
+    background-color:#727070;
+    color:white;
+    border:1px solid lightgray;
     text-align:center;
     padding:15px 100px;
-    margin-left:815px;
-    margin-bottom:10px;
     
 }
 
-h2 {
-    text-align:center;
-}
 
 .submit {
     margin-top:30px;

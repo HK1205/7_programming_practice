@@ -1,7 +1,12 @@
 <?php
 mb_internal_encoding("utf8");
-
 session_start();
+
+try{
+    
+if($_SESSION['yourauthority'] == 0){
+    throw new Exception();
+}
 
 if(!empty($_POST['ID'])){
     $_SESSION['ID'] = $_POST['ID'];
@@ -18,6 +23,10 @@ $stmt->bindValue(':id', $id, PDO::PARAM_STR);
 $stmt->execute();
 
 $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+}catch(Exception $e){
+    $e = "不正なアクセスを検出しました";
+}
 
 ?>
 
@@ -37,14 +46,17 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['yourauthority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
 <main>
+                      <?php if($_SESSION['yourauthority'] == 1): ?>
                        <table>
                         <tr>
                             <th colspan="2" align="center"><a>アカウント削除画面</a></th>
@@ -132,7 +144,10 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <button onClick="location.href='http://localhost/accounts/delete_confirm.php'">確認する</button>
                             </th>
                         </tr>
-                    </table>  
+                    </table>
+                   <?php else:?>
+                   <h1><font color="red"><?php echo $e; ?></font></h1>
+                   <?php endif; ?>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming
