@@ -170,7 +170,7 @@ if(empty($errmsg)){
 }
 }
 }catch(Exception $e){
-    
+    $e = "不正なアクセスが検出されました";
 }
 
 ?>
@@ -381,7 +381,7 @@ if(empty($errmsg)){
                     </table>
                </form>
                <?php else:?>
-                <h1><font color="red">不正なアクセスが検出されました</font></h1>
+                <h1><font color="red"><?php echo $e; ?></font></h1>
                <?php endif; ?>
 </main>
     <footer>

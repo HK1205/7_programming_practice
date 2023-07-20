@@ -20,7 +20,7 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
     $authority = 1;
 }
 }catch(Exception $e){
-    
+    $e = "不正なアクセスが検出されました";
 }
 
 ?>
@@ -155,7 +155,7 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
                         </tr>
                     </table>
                 <?php else:?>
-                <h1><font color="red">不正なアクセスが検出されました</font></h1>
+                <h1><font color="red"><?php echo $e; ?></font></h1>
     　　　　　　　<?php endif; ?>
 </main>
     <footer>
