@@ -2,6 +2,12 @@
  session_cache_limiter('none');
  session_start();
 
+try {
+
+if($_SESSION['yourauthority'] == 0){
+    throw new Exception();
+}
+
 if(isset($_SESSION['gender']) && (($_SESSION['gender']) == "男")){
     $gender = 0;
 }else if(isset($_SESSION['gender']) && (($_SESSION['gender']) == "女")){
@@ -12,6 +18,9 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
     $authority = 0;
 }else if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "管理者")){
     $authority = 1;
+}
+}catch(Exception $e){
+    
 }
 
 ?>
@@ -32,14 +41,17 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
                 <li>登録フォーム</li>
+                <?php if($_SESSION['authority'] == 1): ?>
                 <li onClick="location.href='http://localhost/account_registration/regist.php'">アカウント登録</li>
                 <li onClick="location.href='http://localhost/accounts/list.php'">アカウント一覧</li>
+                <?php endif; ?>
                 <li>お問い合わせ</li>
                 <li>その他</li>
             </ul>
         </div>
     </header>
-<main>  
+<main> 
+        　　　　    <?php if($_SESSION['yourauthority'] == 1):?>
                        <table>
                         <tr>
                             <th colspan="2" align="center"><a>アカウント登録確認画面</a></th>
@@ -141,7 +153,10 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
                             </form>
                             </th>
                         </tr>
-                    </table>           
+                    </table>
+                <?php else:?>
+                <h1><font color="red">不正なアクセスが検出されました</font></h1>
+    　　　　　　　<?php endif; ?>
 </main>
     <footer>
         Copyright D.I.works| D.I.Blog is the one which provides A to Z about programming
