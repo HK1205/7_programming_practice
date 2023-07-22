@@ -1,5 +1,7 @@
 <?php
- session_start();
+
+session_start();
+$authority = $_SESSION['yourauthority'];
 
 try {
 

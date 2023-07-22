@@ -1,8 +1,7 @@
 <?php
 
 session_start();
-
-$error="";
+$error="";  
 
 try{
     
