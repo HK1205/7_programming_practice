@@ -1,6 +1,6 @@
 <?php
 
-unset($err_msg);
+unset($_SESSION['yourauthority']);
 
 $mail = "";
 $password = "";
@@ -8,6 +8,7 @@ $error = "";
 
 if(isset($_POST['login_btn'])){
     
+unset($err_msg); 
 $mail = $_POST['mail'];
 $password = $_POST['password'];
 $err_msg = [];

@@ -2,6 +2,11 @@
 
 session_start();
 
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+
+if(!empty($referer) && strpos($referer, $host) !== false){
+
 try{   
 if($_SESSION['yourauthority'] == 0){
     throw new Exception();
@@ -14,6 +19,10 @@ $rows = $pdo->query('select * from registration order by id desc');
 }catch(Exception $e){
     $e = "不正なアクセスを検出しました";
 }
+}else{
+    header('Location: http://localhost/userlogin/login.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">

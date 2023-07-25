@@ -1,6 +1,11 @@
 <?php
 
-session_start();  
+session_start();
+
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+
+if(!empty($referer) && strpos($referer, $host) !== false){
 
 try {
 
@@ -21,6 +26,10 @@ if(isset($_SESSION['authority']) && (($_SESSION['authority']) == "一般")){
 }
 }catch(Exception $e){
     $e = "不正なアクセスが検出されました";
+}
+    
+}else{
+    header('Location: http://localhost/userlogin/login.php');
 }
 
 ?>

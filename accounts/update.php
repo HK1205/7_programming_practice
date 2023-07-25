@@ -1,5 +1,10 @@
 <?php
 
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+
+if(!empty($referer) && strpos($referer, $host) !== false){
+
 try{
 session_start();
     
@@ -207,6 +212,11 @@ if(empty($errmsg)){
 }catch(Exception $e){
     $e = "不正なアクセスを検出しました";
 }
+    
+}else{
+    header('Location: http://localhost/userlogin/login.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">

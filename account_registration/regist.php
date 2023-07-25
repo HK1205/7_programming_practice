@@ -3,12 +3,16 @@
 session_start();
 $authority = $_SESSION['yourauthority'];
 
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+
+if(!empty($referer) && strpos($referer, $host) === false){
+
 try {
 
 if($_SESSION['yourauthority'] == 0){
     throw new Exception();
 }
-
 
  $family_name = "";
  $last_name = "";
@@ -174,10 +178,12 @@ if(empty($errmsg)){
 }catch(Exception $e){
     $e = "不正なアクセスが検出されました";
 }
+    
+}else{   
+    header('Location: http://localhost/userlogin/login.php');
+}
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">

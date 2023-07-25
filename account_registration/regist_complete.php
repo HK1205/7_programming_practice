@@ -3,6 +3,11 @@
 session_start();
 $error="";  
 
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+
+if(!empty($referer) && strpos($referer, $host) !== false){
+
 try{
     
 if($_SESSION['yourauthority'] == 0){
@@ -20,6 +25,10 @@ $pdo->exec("insert into registration(family_name,last_name,family_name_kana,last
 }catch(PDOException $e){
     $error = "エラーが発生したためアカウント登録できません。";
     $err = "不正なアクセスを検出しました";
+}
+
+}else{
+    header('Location: http://localhost/userlogin/login.php');
 }
 
 

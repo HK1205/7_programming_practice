@@ -2,6 +2,12 @@
 mb_internal_encoding("utf8");
 session_start();
 
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+$accessdeny="localhost/userlogin/login.php";
+
+if(!empty($referer) && strpos($referer, $host) !== false){
+
 try{
     
 if($_SESSION['yourauthority'] == 0){
@@ -26,6 +32,10 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 }catch(Exception $e){
     $e = "不正なアクセスを検出しました";
+}
+
+}else{
+    header('Location: http://localhost/userlogin/login.php');
 }
 
 ?>

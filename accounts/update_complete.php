@@ -1,6 +1,11 @@
 <?php
 mb_internal_encoding("utf8");
 
+$referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
+$host="localhost";
+
+if(!empty($referer) && strpos($referer, $host) !== false){
+
 try {
 
 session_start();
@@ -57,6 +62,10 @@ $stmt->execute();
 }catch(PDOException $e){
     $error = "エラーが発生したためアカウント更新できません。";
     $err = "不正なアクセスを検出しました";
+}
+    
+}else{
+    header('Location: http://localhost/userlogin/login.php');
 }
 
 ?>

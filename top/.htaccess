@@ -1,4 +1,4 @@
-SetEnvIf Referer "http://localhost" legit
+SetEnvIf referer "http://localhost" permitted
 order deny,allow
 deny from all
-allow from env=legit
+allow from env=permitted

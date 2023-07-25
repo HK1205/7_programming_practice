@@ -1,4 +1,0 @@
-SetEnvIf Referer "http://localhost" legit
-order deny,allow
-deny from all
-allow from env=legit
