@@ -1,12 +1,11 @@
 <?php
-
+session_start();
 $referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
 $host="localhost";
 
-if(!empty($referer) && strpos($referer, $host) !== false){
+if((!empty($referer) && strpos($referer, $host) !== false) || !empty($_COOKIE['yourcookie'])){
 
 try{
-session_start();
     
 if($_SESSION['yourauthority'] == 0){
     throw new Exception();

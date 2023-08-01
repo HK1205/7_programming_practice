@@ -1,4 +1,0 @@
-SetEnvIf referer "http://localhost" permitted
-order deny,allow
-deny from all
-allow from env=permitted

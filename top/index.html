@@ -1,10 +1,12 @@
 <?php
-
 session_start();
 $authority = $_SESSION['yourauthority'];
 
-?>
+if((!empty($referer) && strpos($referer, $host) === false) || empty($_COOKIE['yourcookie'])){
+header('Location: http://localhost/userlogin/login.php');
+}
 
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>

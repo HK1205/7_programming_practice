@@ -1,10 +1,9 @@
 <?php
-
 $referer = isset($_SERVER['HTTP_REFERER']) ? ($_SERVER['HTTP_REFERER']) : "";
 $host="localhost";
 $accessdeny="localhost/userlogin/login.php";
 
-if(!empty($referer) && strpos($referer, $host) !== false){
+if((!empty($referer) && strpos($referer, $host) !== false) || !empty($_COOKIE['yourcookie'])){
 
 try {
 
