@@ -1,5 +1,5 @@
 <?php
-
+setcookie("yourcookie", "diuser", time()-1, "/");
 unset($_SESSION['yourauthority']);
 
 $mail = "";
@@ -28,6 +28,7 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 if(!empty($data['AES_DECRYPT(UNHEX(password), \'cryptkey\')']) && ($data['AES_DECRYPT(UNHEX(password), \'cryptkey\')']) == $password){
     session_start();
     $_SESSION['yourauthority'] = $data['authority'];
+    setcookie("yourcookie", "diuser", time()+3600, "/");
     header('Location: http://localhost/top/index.html');
     exit();
 }else{
